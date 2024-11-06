@@ -48,7 +48,7 @@
 
 - name: Copy slurm_servers group to a new variable without localhost
   set_fact:
-  slurm_servers_no_localhost: "{{ groups['slurm_servers'] | difference(['localhost']) }}"
+    slurm_servers_no_localhost: "{{ groups['slurm_servers'] | difference(['localhost']) }}"
 
 - name: msg66666
   debug:

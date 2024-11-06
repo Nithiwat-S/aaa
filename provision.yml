@@ -62,7 +62,7 @@
 
   - name: add slurm wuth out compute-01 to inventory
     blockinfile:
-      path: ./hosts
+      path: ./hosts1
       marker: "# {mark} SLURM INSTANCES with out compute-01"
       block: |
         #jinja2: trim_blocks:False

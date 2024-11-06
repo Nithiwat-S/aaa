@@ -40,18 +40,20 @@
 
 - name: msg55555
   debug:
-    msg: "===={{ slurm_data.server[count].instance.hostname }}===="
+    msg: "==slurm_data.server[count].instance.hostname=={{ slurm_data.server[count].instance.hostname }}===="
+    msg: "==item=={{ item }}===="
+    msg: "==groups[slurm_servers]=={{ groups['slurm_servers'] }}===="
   run_once: true
   delegate_to: "{{ item }}"
   loop: "{{ groups['slurm_servers'] }}"
   loop_control:
     index_var: count
 
-- name: msg66666
-  debug:
-    msg: "===={{ slurm_data.server[count].instance.hostname }}===="
-  run_once: true
-  delegate_to: "{{ item }}"
-  loop: "{{ groups['slurm_server_wo_c1'] }}"
-  loop_control:
-    index_var: count
+#- name: msg66666
+#  debug:
+#    msg: "===={{ slurm_data.server[count].instance.hostname }}===="
+#  run_once: true
+#  delegate_to: "{{ item }}"
+#  loop: "{{ groups['slurm_server_wo_c1'] }}"
+#  loop_control:
+#    index_var: count

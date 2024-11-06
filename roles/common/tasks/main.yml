@@ -46,9 +46,9 @@
   loop_control:
     index_var: count
 
-  - name: Copy slurm_servers group to a new variable without localhost
+- name: Copy slurm_servers group to a new variable without localhost
   set_fact:
-    slurm_servers_no_localhost: "{{ groups['slurm_servers'] | difference(['localhost']) }}"
+  slurm_servers_no_localhost: "{{ groups['slurm_servers'] | difference(['localhost']) }}"
 
 - name: msg66666
   debug:
@@ -58,12 +58,3 @@
   loop: "{{ slurm_servers_no_localhost }}"
   loop_control:
     index_var: count
-
-#- name: msg66666
-#  debug:
-#    msg: "===={{ slurm_data.server[count].instance.hostname }}===="
-#  run_once: true
-#  delegate_to: "{{ item }}"
-#  loop: "{{ groups['slurm_server_wo_c1'] }}"
-#  loop_control:
-#    index_var: count

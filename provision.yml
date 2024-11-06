@@ -60,17 +60,20 @@
         {{ info.results[count + 1].instance.ipv4[0] }}
         {%- endfor %}
 
-  #- name: add slurm wuth out compute-01 to inventory
-  #  blockinfile:
-  #    path: ./hosts
-  #    marker: "# {mark} SLURM INSTANCES with out compute-01"
-  #    block: |
-  #      #jinja2: trim_blocks:False
-  #      [slurm_server_wo_c1]
-  #      localhost ansible_connection=local user=root
-  #      {%- for count in range(cluster_size - 1) %}
-  #      {{ info.results[count + 1].instance.ipv4[0] }}
-  #      {%- endfor %}
+  - name: add slurm wuth out compute-01 to inventory
+    blockinfile:
+      path: ./hosts
+      marker: "# {mark} SLURM INSTANCES with out compute-01"
+      block: |
+        #jinja2: trim_blocks:False
+        [slurm_server_wo_c1]
+        localhost ansible_connection=local user=root
+        {%- for count in range(cluster_size - 1) %}
+        {{ info.results[count + 1].instance.ipv4[0] }}
+        {%- if count != 0 %}
+        {{ info.results[count + 1].instance.ipv4[0] }}
+        {%- endif %}
+        {%- endfor %}
 
   - name: wait for port 22 to become open
     wait_for:

@@ -12,5 +12,5 @@
     - group_vars/slurm/secret_vars
   roles:
     - common
-    - slurm
-    - post
+    #- slurm
+    #- post

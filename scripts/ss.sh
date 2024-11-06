@@ -10,7 +10,7 @@ fi
 # <UDF name="cluster_size" label="slurm cluster size" default="2" oneof="2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18" />
 
 # git repo
-export GIT_REPO="https://github.com/Nithiwat-S/slurm.git"
+export GIT_REPO="https://github.com/Nithiwat-S/aaa.git"
 export UUID=$(uuidgen | awk -F - '{print $1}')
 
 # enable logging

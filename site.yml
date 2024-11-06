@@ -1,0 +1,16 @@
+---
+# linode slurm ansible playbook
+
+# slurm servers
+- name: configure slurm servers
+  hosts: slurm_servers
+  user: root
+  vars:
+    local_home: "{{ lookup('env','HOME') }}"  
+  vars_files:
+    - group_vars/slurm/vars
+    - group_vars/slurm/secret_vars
+  roles:
+    - common
+    - slurm
+    - post

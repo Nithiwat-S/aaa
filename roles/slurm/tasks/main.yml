@@ -1,0 +1,24 @@
+---
+# roles/slurm/tasks/main.yml
+
+- name: configure hostname
+  import_tasks: hostname.yml
+
+- name: install nfsserver
+  import_tasks: install_nfsserver.yml
+  run_once: true
+  delegate_to: "localhost"
+
+- name: msg55555
+  debug:
+    msg: "===={{ slurm_data.server[count].instance.hostname }}===="
+  run_once: true
+  delegate_to: "{{ item }}"
+  #loop: "{{ groups['slurm_servers'] }}"
+  loop: "{{ groups['slurm_servers'] | slice(1, groups['slurm_servers'] | length) }}"
+  loop_control:
+    index_var: count
+    
+
+
+

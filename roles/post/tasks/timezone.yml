@@ -1,0 +1,4 @@
+---
+# set timezone 
+- name: Set timezone to Bangkok
+  shell: timedatectl set-timezone Asia/Bangkok

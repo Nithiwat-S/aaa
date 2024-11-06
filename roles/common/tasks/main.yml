@@ -1,0 +1,38 @@
+---
+# roles/common/tasks
+
+# common tasks for all linodes
+- name: force ipv4 with apt
+  copy:
+    content: 'Acquire::ForceIPv4 "true";'
+    dest: /etc/apt/apt.conf.d/99force-ipv4
+    
+- name: apt update
+  apt:
+    update_cache: yes
+
+- name: apt upgrade
+  apt:
+    upgrade: full
+
+- name: install basic packages
+  apt:
+    pkg:
+    - ntp
+    - wget 
+    - curl
+    - htop
+    - rsync
+    - python3
+    - python3-passlib
+    state: latest
+
+- name: secure ssh configs
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^\#?PermitRootLogin (yes|no)', line: 'PermitRootLogin without-password' }
+    - { regexp: '^\#?PubkeyAuthentication (yes|no)', line: 'PubkeyAuthentication yes' }
+  notify: restart ssh

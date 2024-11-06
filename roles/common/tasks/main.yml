@@ -37,15 +37,25 @@
     - { regexp: '^\#?PubkeyAuthentication (yes|no)', line: 'PubkeyAuthentication yes' }
   notify: restart ssh
 
-
 - name: msg55555
   debug:
-    msg: "==slurm_data.server[count].instance.hostname=={{ slurm_data.server[count].instance.hostname }}===="
-    msg: "==item=={{ item }}===="
     msg: "==groups[slurm_servers]=={{ groups['slurm_servers'] }}===="
   run_once: true
   delegate_to: "{{ item }}"
   loop: "{{ groups['slurm_servers'] }}"
+  loop_control:
+    index_var: count
+
+  - name: Copy slurm_servers group to a new variable without localhost
+  set_fact:
+    slurm_servers_no_localhost: "{{ groups['slurm_servers'] | difference(['localhost']) }}"
+
+- name: msg66666
+  debug:
+    msg: "==slurm_servers_no_localhost=={{ slurm_servers_no_localhost }}===="
+  run_once: true
+  delegate_to: "{{ item }}"
+  loop: "{{ slurm_servers_no_localhost }}"
   loop_control:
     index_var: count
 
